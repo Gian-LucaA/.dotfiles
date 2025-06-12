@@ -16,25 +16,28 @@ fi
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH/custom}"
 
-# Install plugins into standard $ZSH/plugins/
-if [ ! -d "$ZSH/plugins/zsh-syntax-highlighting" ]; then
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
   echo "→ Installing zsh-syntax-highlighting..."
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
-if [ ! -d "$ZSH/plugins/zsh-interactive-cd" ]; then
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-interactive-cd" ]; then
   echo "→ Installing zsh-interactive-cd..."
   git clone https://github.com/changyuheng/zsh-interactive-cd "$ZSH_CUSTOM/plugins/zsh-interactive-cd"
 fi
 
-# Install Powerlevel10k theme into $ZSH/themes/
-if [ ! -d "$ZSH/themes/powerlevel10k" ]; then
-  echo "→ Installing Powerlevel10k..."
-  git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git "$ZSH/themes/powerlevel10k"
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  echo "→ Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
+# Powerlevel10k theme into $ZSH_CUSTOM/themes
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+  echo "→ Installing Powerlevel10k theme..."
+  git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+fi
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -45,6 +48,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_DEFAULT_SESSION_NAME="ghostty"
+
+# Bind Ctrl+Space (which is ^@) to accept autosuggestion
+bindkey '^@' autosuggest-accept
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -106,7 +112,7 @@ ZSH_TMUX_DEFAULT_SESSION_NAME="ghostty"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux zsh-syntax-highlighting zsh-interactive-cd)
+plugins=(git tmux zsh-syntax-highlighting zsh-autosuggestions zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 
