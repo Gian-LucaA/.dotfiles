@@ -8,8 +8,32 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Auto-install Oh My Zsh if needed
+if [ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
+  echo "→ Installing Oh My Zsh..."
+  git clone https://github.com/ohmyzsh/ohmyzsh.git "${ZSH:-$HOME/.oh-my-zsh}"
+fi
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+# Install plugins into standard $ZSH/plugins/
+if [ ! -d "$ZSH/plugins/zsh-syntax-highlighting" ]; then
+  echo "→ Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+fi
+
+if [ ! -d "$ZSH/plugins/zsh-interactive-cd" ]; then
+  echo "→ Installing zsh-interactive-cd..."
+  git clone https://github.com/changyuheng/zsh-interactive-cd "$ZSH_CUSTOM/plugins/zsh-interactive-cd"
+fi
+
+# Install Powerlevel10k theme into $ZSH/themes/
+if [ ! -d "$ZSH/themes/powerlevel10k" ]; then
+  echo "→ Installing Powerlevel10k..."
+  git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git "$ZSH/themes/powerlevel10k"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -117,3 +141,5 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
