@@ -33,11 +33,17 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use" ]; then
+  echo "→ Installing zsh-you-should-youse..."
+  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use
+fi
+
 # Powerlevel10k theme into $ZSH_CUSTOM/themes
 if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
   echo "→ Installing Powerlevel10k theme..."
   git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -112,7 +118,7 @@ bindkey '^@' autosuggest-accept
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux zsh-syntax-highlighting zsh-autosuggestions zsh-interactive-cd)
+plugins=(git tmux zsh-syntax-highlighting zsh-autosuggestions zsh-interactive-cd  you-should-use)
 
 source $ZSH/oh-my-zsh.sh
 
